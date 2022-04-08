@@ -208,7 +208,6 @@ void VP8LHistogramAddSinglePixOrCopy(VP8LHistogram* const histo,
   } else if (PixOrCopyIsCacheIdx(v)) {
     const int literal_ix =
         NUM_LITERAL_CODES + NUM_LENGTH_CODES + PixOrCopyCacheIdx(v);
-    assert(histo->palette_code_bits_ != 0);
     ++histo->literal_[literal_ix];
   } else {
     int code, extra_bits;
