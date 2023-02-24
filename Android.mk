@@ -1,9 +1,5 @@
-# Note that the platform modules are defined in the Android.bp. This file is
-# used for the NDK.
-
-# If we're being invoked from ndk-build, we'll have NDK_ROOT defined.
+# Ignore this file during non-NDK builds.
 ifdef NDK_ROOT
-
 LOCAL_PATH := $(call my-dir)
 
 WEBP_CFLAGS := -Wall -DANDROID -DHAVE_MALLOC_H -DHAVE_PTHREAD -DWEBP_USE_THREAD
@@ -41,6 +37,7 @@ endif
 
 sharpyuv_srcs := \
     sharpyuv/sharpyuv.c \
+    sharpyuv/sharpyuv_cpu.c \
     sharpyuv/sharpyuv_csp.c \
     sharpyuv/sharpyuv_dsp.c \
     sharpyuv/sharpyuv_gamma.c \
@@ -200,6 +197,9 @@ endif
 
 LOCAL_MODULE := webpdecoder_static
 
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/COPYING $(LOCAL_PATH)/NOTICE $(LOCAL_PATH)/PATENTS
 include $(BUILD_STATIC_LIBRARY)
 
 ifeq ($(ENABLE_SHARED),1)
@@ -209,6 +209,9 @@ LOCAL_WHOLE_STATIC_LIBRARIES := webpdecoder_static
 
 LOCAL_MODULE := webpdecoder
 
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/COPYING $(LOCAL_PATH)/NOTICE $(LOCAL_PATH)/PATENTS
 include $(BUILD_SHARED_LIBRARY)
 endif  # ENABLE_SHARED=1
 
@@ -224,7 +227,7 @@ LOCAL_SRC_FILES := \
     $(utils_enc_srcs) \
 
 LOCAL_CFLAGS := $(WEBP_CFLAGS)
-LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/src
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/src $(LOCAL_PATH)
 
 # prefer arm over thumb mode for performance gains
 LOCAL_ARM_MODE := arm
@@ -234,6 +237,9 @@ LOCAL_WHOLE_STATIC_LIBRARIES := webpdecoder_static
 LOCAL_MODULE := webp
 
 ifeq ($(ENABLE_SHARED),1)
+  LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD
+  LOCAL_LICENSE_CONDITIONS := notice
+  LOCAL_NOTICE_FILE := $(LOCAL_PATH)/COPYING $(LOCAL_PATH)/NOTICE $(LOCAL_PATH)/PATENTS
   include $(BUILD_SHARED_LIBRARY)
 else
   include $(BUILD_STATIC_LIBRARY)
@@ -256,6 +262,9 @@ LOCAL_MODULE := webpdemux
 
 ifeq ($(ENABLE_SHARED),1)
   LOCAL_SHARED_LIBRARIES := webp
+  LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD
+  LOCAL_LICENSE_CONDITIONS := notice
+  LOCAL_NOTICE_FILE := $(LOCAL_PATH)/COPYING $(LOCAL_PATH)/NOTICE $(LOCAL_PATH)/PATENTS
   include $(BUILD_SHARED_LIBRARY)
 else
   LOCAL_STATIC_LIBRARIES := webp
@@ -279,6 +288,9 @@ LOCAL_MODULE := webpmux
 
 ifeq ($(ENABLE_SHARED),1)
   LOCAL_SHARED_LIBRARIES := webp
+  LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD
+  LOCAL_LICENSE_CONDITIONS := notice
+  LOCAL_NOTICE_FILE := $(LOCAL_PATH)/COPYING $(LOCAL_PATH)/NOTICE $(LOCAL_PATH)/PATENTS
   include $(BUILD_SHARED_LIBRARY)
 else
   LOCAL_STATIC_LIBRARIES := webp
@@ -294,5 +306,4 @@ include $(WEBP_SRC_PATH)/examples/Android.mk
 ifeq ($(USE_CPUFEATURES),yes)
   $(call import-module,android/cpufeatures)
 endif
-
-endif
+endif  # NDK_ROOT
