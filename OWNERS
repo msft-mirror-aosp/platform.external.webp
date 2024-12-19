@@ -5,3 +5,4 @@ djsollen@google.com
 pascal.massimino@gmail.com
 # skal@google.com
 # libwebp-{en,de}code is used by external/{skia,skqp}
+include platform/system/core:/janitors/OWNERS #{LAST_RESORT_SUGGESTION}
