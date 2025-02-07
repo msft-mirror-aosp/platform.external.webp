@@ -1,0 +1,30 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsGraphicsTestCases",
+      "options": [
+        {
+          "include-filter": "android.graphics.cts.AImageDecoderTest"
+        },
+        {
+          "include-filter": "android.graphics.cts.Bitmap_CompressFormatTest"
+        },
+        {
+          "include-filter": "android.graphics.cts.BitmapFactoryTest"
+        },
+        {
+          "include-filter": "android.graphics.cts.BitmapRegionDecoderTest"
+        },
+        {
+          "include-filter": "android.graphics.cts.BitmapTest"
+        },
+        {
+          "include-filter": "android.graphics.cts.ImageDecoderTest"
+        },
+        {
+          "include-filter": "android.graphics.drawable.cts.AnimatedImageDrawableTest"
+        }
+      ]
+    }
+  ]
+}
